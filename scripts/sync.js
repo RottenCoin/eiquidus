@@ -613,6 +613,22 @@ function check_show_sync_message(blocks_to_sync) {
   return retVal;
 }
 
+function save_avg_market_price(market_array) {
+  // save the BTC price from exchange data without relying on coingecko
+  const currency = lib.get_market_currency_code();
+  const base_index = market_array.findIndex(p => p.currency.toLowerCase() == currency.toLowerCase());
+  const last_price = (base_index > -1 ? market_array[base_index].last_price : 0);
+
+  Stats.updateOne({coin: settings.coin.name}, {
+    last_price: last_price
+  }).then(() => {
+    finish_market_sync();
+  }).catch((err) => {
+    console.log(err);
+    exit(1);
+  });
+}
+
 function get_market_price(market_array) {
   // check how the market price should be updated
   if (settings.markets_page.market_price == 'COINGECKO') {
@@ -662,64 +678,55 @@ function get_market_price(market_array) {
   } else {
     console.log(`${settings.localization.calculating_market_price}.. ${settings.localization.please_wait}..`);
 
-    // get the list of coins from coingecko
+    // save the market price directly from exchange data
+    const currency = lib.get_market_currency_code();
+    const base_index = market_array.findIndex(p => p.currency.toLowerCase() == currency.toLowerCase());
+    const last_price = (base_index > -1 ? market_array[base_index].last_price : 0);
+
+    // try to get the USD price from coingecko (optional)
     coingecko_coin_list_api(market_array, function (coin_err, coin_list) {
-      // check for errors
       if (coin_err == null) {
         let api_ids = '';
 
-        // loop through all unique currencies in the market_array
         for (let m = 0; m < market_array.length; m++) {
           const index = coin_list.findIndex(p => p.symbol.toLowerCase() == market_array[m].currency.toLowerCase());
 
-          // check if the market currency is found in the coin list
           if (index > -1) {
-            // add to the list of api_ids
             api_ids += (api_ids == '' ? '' : ',') + coin_list[index].id;
-
-            // add the coingecko id back to the market_array
             market_array[m].coingecko_id = coin_list[index].id;
           } else {
-            // coin symbol not found in the api
             console.log('Error: Cannot find symbol "' + market_array[m].currency + '" in the coingecko api');
           }
         }
 
-        // check if any api_ids were found
         if (api_ids != '') {
           const coingecko = require('../lib/apis/coingecko');
-          const currency = lib.get_market_currency_code();
 
-          // get the market price from coingecko api
-          coingecko.get_avg_market_prices(api_ids, currency, market_array, settings.markets_page.coingecko_api_key, function (mkt_err, last_price, last_usd) {   
-            // check for errors
+          coingecko.get_avg_market_prices(api_ids, currency, market_array, settings.markets_page.coingecko_api_key, function (mkt_err, avg_price, last_usd) {
             if (mkt_err == null) {
-              // update the last usd price
+              // save exchange price and USD price from coingecko
               Stats.updateOne({coin: settings.coin.name}, {
                 last_price: last_price,
                 last_usd_price: last_usd
               }).then(() => {
-                // market price updated successfully
                 finish_market_sync();
               }).catch((err) => {
-                // error saving stat data
                 console.log(err);
                 exit(1);
               });
             } else {
-              // coingecko api returned an error
+              // coingecko failed, save exchange price without USD
               console.log(`Error: ${mkt_err}`);
-              exit(1);
+              save_avg_market_price(market_array);
             }
           });
         } else {
-          // no api_ids found so cannot continue to getting the usd price and error msgs were already thrown, so just exit
-          exit(1);
+          save_avg_market_price(market_array);
         }
       } else {
-        // coingecko api returned an error
+        // coingecko failed, save exchange price without USD
         console.log(`Error: ${coin_err}`);
-        exit(1);
+        save_avg_market_price(market_array);
       }
     });
   }

@@ -229,7 +229,7 @@ block content
                       grace: '10%',
                       ticks: {
                         callback: function(value, index, values) {
-                          return parseFloat(value).toFixed(8);
+                          return parseFloat(value).toFixed(10);
                         }
                       }
                     }
@@ -249,10 +249,10 @@ block content
                           const data = dataset.data[context[0].dataIndex];
 
                           return [
-                            'Open: ' + data.o.toFixed(8),
-                            'High: ' + data.h.toFixed(8),
-                            'Low: ' + data.l.toFixed(8),
-                            'Close: ' + data.c.toFixed(8)
+                            'Open: ' + data.o.toFixed(10),
+                            'High: ' + data.h.toFixed(10),
+                            'Low: ' + data.l.toFixed(10),
+                            'Close: ' + data.c.toFixed(10)
                           ];
                         },
                         label: function(context) {
@@ -329,42 +329,42 @@ block content
                   tr
                     if marketdata.data.summary != null
                       if marketdata.data.summary.high != null
-                        - var highValue = Number(marketdata.data.summary.high).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                        - var highValue = Number(marketdata.data.summary.high).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                         - var splitHigh = highValue.split(".");
                         td.text-center #{splitHigh[0]}.
                           span.decimal #{splitHigh[1]}
                       if marketdata.data.summary.low != null
-                        - var lowValue = Number(marketdata.data.summary.low).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                        - var lowValue = Number(marketdata.data.summary.low).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                         - var splitLow = lowValue.split(".");
                         td.text-center #{splitLow[0]}.
                           span.decimal #{splitLow[1]}
                       if marketdata.data.summary.volume != null
-                        - var volumeValue = Number(marketdata.data.summary.volume).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                        - var volumeValue = Number(marketdata.data.summary.volume).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                         - var splitVolume = volumeValue.split(".");
                         td.text-center #{splitVolume[0]}.
                           span.decimal #{splitVolume[1]}
                       if marketdata.data.summary.volume_btc != null
-                        - var volumeBTCValue = Number(marketdata.data.summary.volume_btc).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                        - var volumeBTCValue = Number(marketdata.data.summary.volume_btc).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                         - var splitVolumeBTC = volumeBTCValue.split(".");
                         td.text-center #{splitVolumeBTC[0]}.
                           span.decimal #{splitVolumeBTC[1]}
                       if marketdata.data.summary.bid != null
-                        - var bidValue = Number(marketdata.data.summary.bid).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                        - var bidValue = Number(marketdata.data.summary.bid).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                         - var splitBid = bidValue.split(".");
                         td.text-center #{splitBid[0]}.
                           span.decimal #{splitBid[1]}
                       if marketdata.data.summary.ask != null
-                        - var askValue = Number(marketdata.data.summary.ask).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                        - var askValue = Number(marketdata.data.summary.ask).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                         - var splitAsk = askValue.split(".");
                         td.text-center #{splitAsk[0]}.
                           span.decimal #{splitAsk[1]}
                       if marketdata.data.summary.last != null
-                        - var lastValue = Number(marketdata.data.summary.last).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                        - var lastValue = Number(marketdata.data.summary.last).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                         - var splitLast = lastValue.split(".");
                         td.text-center #{splitLast[0]}.
                           span.decimal #{splitLast[1]}
                       if marketdata.data.summary.prev != null
-                        - var prevValue = Number(marketdata.data.summary.prev).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                        - var prevValue = Number(marketdata.data.summary.prev).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                         - var splitPrev = prevValue.split(".");
                         td.text-center #{splitPrev[0]}.
                           span.decimal #{splitPrev[1]}
@@ -430,14 +430,14 @@ block content
                 tbody
                   if marketdata.data.buys != null
                     each buy in marketdata.data.buys
-                      - var price = Number(buy.price).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                      - var price = Number(buy.price).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                       - var splitPrice = price.split(".");
-                      - var quantity = Number(buy.quantity).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                      - var quantity = Number(buy.quantity).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                       - var splitQuantity = quantity.split(".");
                       if buy.total != null
-                        - var total = Number(buy.total).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                        - var total = Number(buy.total).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                       else
-                        - var total = Number(parseFloat(buy.price).toFixed(8) * parseFloat(buy.quantity).toFixed(8)).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                        - var total = Number(parseFloat(buy.price).toFixed(10) * parseFloat(buy.quantity).toFixed(10)).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                       - var splitTotal = total.split(".");
                       tr
                         td.text-center.text-success.fw-bold #{splitPrice[0]}.
@@ -464,14 +464,14 @@ block content
                 tbody
                   if marketdata.data.sells != null
                     each sell in marketdata.data.sells
-                      - var price = Number(sell.price).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                      - var price = Number(sell.price).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                       - var splitPrice = price.split(".");
-                      - var quantity = Number(sell.quantity).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                      - var quantity = Number(sell.quantity).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                       - var splitQuantity = quantity.split(".");
                       if sell.total != null
-                        - var total = Number(sell.total).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                        - var total = Number(sell.total).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                       else
-                        - var total = Number(parseFloat(sell.price).toFixed(8) * parseFloat(sell.quantity).toFixed(8)).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                        - var total = Number(parseFloat(sell.price).toFixed(10) * parseFloat(sell.quantity).toFixed(10)).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                       - var splitTotal = total.split(".");
                       tr
                         td.text-center.text-danger.fw-bold #{splitPrice[0]}.
@@ -501,14 +501,14 @@ block content
                   if marketdata.data.history != null
                     each order in marketdata.data.history
                       if order.ordertype != null
-                        - var price = Number(order.price).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                        - var price = Number(order.price).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                         - var splitPrice = price.split(".");
-                        - var quantity = Number(order.quantity).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                        - var quantity = Number(order.quantity).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                         - var splitQuantity = quantity.split(".");
                         if order.total != null
-                          - var total = Number(order.total).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                          - var total = Number(order.total).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                         else
-                          - var total = Number(parseFloat(order.price).toFixed(8) * parseFloat(order.quantity).toFixed(8)).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+                          - var total = Number(parseFloat(order.price).toFixed(10) * parseFloat(order.quantity).toFixed(10)).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
                         - var splitTotal = total.split(".");
                         if order.ordertype.toUpperCase() == 'BUY'
                           tr

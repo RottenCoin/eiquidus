@@ -457,7 +457,7 @@ html(lang='en')
             $("#supply").text(supplyString);
             showTopPanelData('supplypanel', 'supplyPanelLoading');
 
-            splitValue = Number(parseFloat(json.lastPrice).toFixed(8) * parseInt(parseFloat(json.supply).toFixed(0))).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+            splitValue = Number(parseFloat(json.lastPrice).toFixed(10) * parseInt(parseFloat(json.supply).toFixed(0))).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
             splitParts = splitValue.split('.');
             $("#marketCap").html(splitParts[0] + '.<span class="decimal">' + splitParts[1] + '</span>');
             showTopPanelData('marketCapPanel', 'marketCapPanelLoading');
@@ -487,7 +487,7 @@ html(lang='en')
             }
             showTopPanelData('hashratepanel', 'hashratePanelLoading');
 
-            splitValue = Number(json.lastPrice).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':8,'useGrouping':true});
+            splitValue = Number(json.lastPrice).toLocaleString('en',{'minimumFractionDigits':2,'maximumFractionDigits':10,'useGrouping':true});
             splitParts = splitValue.split('.');
             $("#lastPrice").html(splitParts[0] + '.<span class="decimal">' + splitParts[1] + '</span>');
             showTopPanelData('pricepanel', 'pricePanelLoading');
