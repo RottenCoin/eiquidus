@@ -1881,6 +1881,18 @@
         //          If set to true, the plugin will be used to extend the explorer functionality and accept incoming http requests to modify explorer data
         //          If set to false, all features and functionality of the plugin will be completely disabled
         "enabled": false
+      },
+      {
+        // plugin_name: The name of the plugin which must exactly match the name of the plugin folder name inside the explorer /plugins directory
+        "plugin_name": "seed-server",
+        // enabled: Enable/disable the plugin
+        //          If set to true, the seed-server plugin exposes the network peer seed API endpoints:
+        //            GET /api/seed/peers      - JSON list of active (Connections table) peers
+        //            GET /api/seed/peers.txt  - plain-text ip:port list, one per line
+        //            GET /api/seed/stats      - peer table summary counts
+        //            GET /seed                - human-readable plain-text seed info page
+        //          If set to false, all features and functionality of the plugin will be completely disabled
+        "enabled": false
       }
     ]
   },
